@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flash Jarimatika SD Ceria - Mental Aritmatika Proyektor</title>
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Plus Jakarta Sans & Fredoka -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Fredoka"', 'sans-serif'],
+          },
+          colors: {
+            pastel: {
+              lavender: '#E0E7FF',
+              purple: '#818CF8',
+              deepPurple: '#4F46E5',
+              mint: '#D1FAE5',
+              emerald: '#10B981',
+              peach: '#FFE4E6',
+              rose: '#F43F5E',
+              lemon: '#FEF3C7',
+              amber: '#D97706',
+              sky: '#E0F2FE',
+              blue: '#0284C7'
+            }
+          },
+          animation: {
+            'pop-in': 'popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+            'pulse-fast': 'pulse 0.7s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'bounce-soft': 'bounceSoft 2s infinite',
+          },
+          keyframes: {
+            popIn: {
+              '0%': { transform: 'scale(0.65)', opacity: '0' },
+              '70%': { transform: 'scale(1.08)' },
+              '100%': { transform: 'scale(1)', opacity: '1' }
+            },
+            bounceSoft: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-6px)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Styling scrollbar halus untuk panel review */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F3F4F6;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94A3B8;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-50 via-rose-50 to-emerald-50 min-h-screen text-slate-800 font-sans flex flex-col justify-between overflow-x-hidden selection:bg-indigo-200">
+
+  <!-- HEADER UTAMA (Optimalkan untuk Proyektor) -->
+  <header class="w-full bg-white/80 backdrop-blur-md border-b border-indigo-100 shadow-sm px-6 py-3.5 z-20">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+      
+      <!-- Brand & Identitas Guru -->
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-500 to-rose-400 flex items-center justify-center text-white shadow-md shadow-indigo-200">
+          <!-- Ikon Dua Tangan Jarimatika -->
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-xl md:text-2xl font-black tracking-tight text-slate-800 font-display flex items-center gap-2">
+            JARIMATIKA <span class="text-xs bg-amber-500 text-white px-2.5 py-0.5 rounded-full uppercase tracking-wider font-sans font-bold shadow-sm">Tingkat SD / MI</span>
+          </h1>
+          <p class="text-xs text-slate-500 font-medium">
+            Pelatih Mental Aritmatika &bull; <span class="text-indigo-600 font-semibold">Rahmat Djafar, S.Pd., Gr.</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Indikator & Tombol Audio / Layar Penuh -->
+      <div class="flex items-center gap-2.5">
+        <!-- Panduan Jarimatika Modal Button -->
+        <button id="btnGuide" class="px-3.5 py-2 bg-pastel-lavender/60 hover:bg-pastel-lavender text-indigo-700 text-xs font-bold rounded-xl transition flex items-center gap-1.5 border border-indigo-200">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span class="hidden sm:inline">Konsep Jarimatika</span>
+        </button>
+
+        <!-- Audio Toggle (BGM Tegang & SFX) -->
+        <button id="btnAudio" class="px-3.5 py-2 bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 text-xs font-bold rounded-xl transition flex items-center gap-1.5 shadow-sm">
+          <svg id="iconAudioOn" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+          <svg id="iconAudioOff" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15zM17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"/></svg>
+          <span id="labelAudio">BGM & SFX: Nyala</span>
+        </button>
+
+        <!-- Fullscreen Proyektor Button -->
+        <button id="btnFullscreen" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition flex items-center gap-1" title="Layar Penuh Proyektor">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0 0l-5-5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+          <span class="hidden md:inline">Proyektor</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- KONTEN UTAMA: PANGGUNG HITUNG PROYEKTOR -->
+  <main class="max-w-6xl mx-auto w-full px-4 py-4 flex-grow flex flex-col items-center justify-center relative">
+    
+    <!-- LEVEL & PENGATURAN CEPAT DI ATAS STAGE -->
+    <div id="quickControls" class="w-full max-w-3xl mb-4 bg-white/70 backdrop-blur-md rounded-2xl p-3 border border-indigo-100 shadow-sm flex flex-wrap items-center justify-between gap-3">
+      
+      <!-- Pemilih Level Khusus Siswa SD -->
+      <div class="flex items-center gap-2">
+        <label class="text-xs font-bold text-slate-500 uppercase tracking-wide">Tingkatan SD:</label>
+        <select id="selectLevel" class="bg-indigo-50/80 border border-indigo-200 text-indigo-900 font-bold text-xs sm:text-sm rounded-xl px-3 py-1.5 focus:ring-2 focus:ring-indigo-400 focus:outline-none transition cursor-pointer">
+          <option value="1">Level 1: Satuan Ceria 1-9 (Tangan Kanan Saja)</option>
+          <option value="2">Level 2: Kawan Kecil 5 (Tangan Kanan)</option>
+          <option value="3" selected>Level 3: Belasan 1-20 (Kawan Besar 10)</option>
+          <option value="4">Level 4: Puluhan Pemula (Hasil 10 - 50)</option>
+        </select>
+      </div>
+
+      <!-- Pengaturan Durasi & Jumlah Angka Ramah Siswa SD -->
+      <div class="flex items-center gap-4 text-xs font-semibold text-slate-600">
+        <div class="flex items-center gap-1.5">
+          <span>Kecepatan:</span>
+          <select id="selectSpeed" class="bg-rose-50 border border-rose-200 text-rose-800 rounded-lg px-2 py-1 font-bold">
+            <option value="4000">4.0 detik (Sangat Santai)</option>
+            <option value="3000" selected>3.0 detik (Standar SD)</option>
+            <option value="2200">2.2 detik (Tangkas Cilik)</option>
+            <option value="1500">1.5 detik (Tantangan Cepat)</option>
+          </select>
+        </div>
+
+        <div class="flex items-center gap-1.5">
+          <span>Jumlah Baris:</span>
+          <select id="selectSteps" class="bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-lg px-2 py-1 font-bold">
+            <option value="3">3 Angka</option>
+            <option value="4" selected>4 Angka</option>
+            <option value="5">5 Angka</option>
+            <option value="6">6 Angka</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- AREA KARTU DISPLAY PROYEKTOR UTAMA -->
+    <div class="w-full max-w-4xl bg-white/95 rounded-3xl shadow-2xl shadow-indigo-200/60 border-4 border-indigo-100 overflow-hidden relative flex flex-col justify-between transition-all duration-300 min-h-[480px]">
+      
+      <!-- Status Bar Layar Proyektor -->
+      <div class="px-6 py-3.5 bg-gradient-to-r from-indigo-50 via-purple-50 to-rose-50 border-b border-indigo-100 flex items-center justify-between text-xs font-bold text-slate-600">
+        <div class="flex items-center gap-2">
+          <span id="badgeStatus" class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-slate-200 text-slate-700 font-bold">
+            <span class="w-2 h-2 rounded-full bg-slate-500"></span> Siap Memulai
+          </span>
+          <span id="badgeTarget" class="text-slate-400 font-semibold hidden md:inline">| Mode: Jarimatika Dasar Ceria</span>
+        </div>
+        
+        <!-- Step Progress Indicator -->
+        <div id="stepCounterContainer" class="flex items-center gap-2">
+          <span class="text-slate-400">Putaran:</span>
+          <span id="stepCounterText" class="text-indigo-600 text-sm font-extrabold font-display">0 / 4</span>
+        </div>
+      </div>
+
+      <!-- Garis Progres Waktu (Visual Timer Bar) -->
+      <div class="w-full bg-slate-100 h-2.5 overflow-hidden">
+        <div id="stepTimerBar" class="h-full bg-gradient-to-r from-indigo-400 via-rose-400 to-emerald-400 w-0 transition-none"></div>
+      </div>
+
+      <!-- LAYAR TENGAH: ANGKA RAKSASA (PROYEKTOR SCREEN) -->
+      <div id="projectorCanvas" class="flex-grow flex flex-col items-center justify-center p-8 text-center select-none relative min-h-[300px]">
+        
+        <!-- 1. TAMPILAN STANDBY / IDLE -->
+        <div id="screenIdle" class="flex flex-col items-center justify-center space-y-4 max-w-lg">
+          <div class="w-20 h-20 rounded-full bg-pastel-lavender flex items-center justify-center text-indigo-600 shadow-inner">
+            <svg class="w-10 h-10 animate-bounce-soft" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-slate-800 font-display">
+            Ayo Siapkan Jarimu di Meja!
+          </h2>
+          <p class="text-slate-500 text-sm md:text-base leading-relaxed">
+            👉 Tangan <strong>Kanan = Satuan (1–9)</strong> &bull; 👈 Tangan <strong>Kiri = Puluhan (10–50)</strong>.<br>
+            Lihat angka di layar proyektor. Ikuti tanda plus (<span class="text-emerald-600 font-bold">+ Buka</span>) dan minus (<span class="text-rose-600 font-bold">- Lipat</span>)!
+          </p>
+          <button id="btnStart" class="mt-4 px-8 py-4 bg-gradient-to-r from-amber-500 via-rose-500 to-indigo-600 hover:from-amber-600 hover:to-indigo-700 text-white font-extrabold text-lg rounded-2xl shadow-lg shadow-indigo-300 transform hover:-translate-y-0.5 active:translate-y-0 transition flex items-center gap-3">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/></svg>
+            MULAI HITUNG JARIMATIKA
+          </button>
+        </div>
+
+        <!-- 2. HITUNG MUNDUR (COUNTDOWN) -->
+        <div id="screenCountdown" class="hidden flex-col items-center justify-center">
+          <span class="text-indigo-400 text-xl font-bold tracking-widest uppercase mb-2">Bersiap...</span>
+          <span id="countdownNumber" class="text-8xl md:text-9xl font-black font-display text-transparent bg-clip-text bg-gradient-to-br from-indigo-600 via-rose-500 to-amber-500 animate-pulse-fast">
+            3
+          </span>
+          <span class="text-slate-400 text-sm mt-3 font-semibold">Tangan Kiri: Puluhan | Tangan Kanan: Satuan</span>
+        </div>
+
+        <!-- 3. ANGKA UTAMA BERJALAN (FLASH DISPLAY) -->
+        <div id="screenFlash" class="hidden flex-col items-center justify-center w-full">
+          <!-- Tanda Operasi (+ atau -) & Angka -->
+          <div class="flex items-center justify-center gap-3 md:gap-6 my-2">
+            <span id="displaySign" class="text-6xl md:text-8xl lg:text-9xl font-black transition-colors font-display">
+              +
+            </span>
+            <span id="displayValue" class="text-7xl md:text-9xl lg:text-[11rem] font-black tracking-tight font-display text-slate-800 animate-pop-in drop-shadow-sm">
+              25
+            </span>
+          </div>
+
+          <!-- Petunjuk Visual Subtitusional Ramah Pemula -->
+          <div id="subHint" class="mt-2 px-4 py-1 rounded-full bg-slate-100 text-slate-500 text-xs md:text-sm font-semibold tracking-wide">
+            Operasikan pada kedua tangan!
+          </div>
+        </div>
+
+        <!-- 4. MENUNGGU JAWABAN SISWA (LOCK IN ANSWER) -->
+        <div id="screenAnswering" class="hidden flex-col items-center justify-center space-y-5 animate-pop-in">
+          <div class="w-16 h-16 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-3xl shadow-inner">
+            ?
+          </div>
+          <div>
+            <h3 class="text-3xl md:text-4xl font-extrabold text-slate-800 font-display mb-1">
+              Kunci Formasi Jarimu!
+            </h3>
+            <p class="text-slate-500 text-base">Berapa angka puluhan dan satuan yang terbentuk pada kedua tanganmu?</p>
+          </div>
+
+          <!-- Pilihan Buka Kunci Jawaban -->
+          <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+            <button id="btnReveal" class="px-7 py-3.5 bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold rounded-2xl shadow-lg shadow-emerald-200 transition transform hover:scale-105 active:scale-95 flex items-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              Buka Kunci Jawaban
+            </button>
+            <button id="btnRetry" class="px-5 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-2xl transition">
+              Ulangi Soal Ini
+            </button>
+          </div>
+        </div>
+
+        <!-- 5. TAMPILAN JAWABAN AKHIR & ANALISIS JARI -->
+        <div id="screenResult" class="hidden flex-col items-center justify-center space-y-4 animate-pop-in max-w-2xl w-full">
+          <div class="text-xs font-bold text-emerald-600 uppercase tracking-widest bg-emerald-100 px-3 py-1 rounded-full">
+            Hasil Akhir Mental Aritmatika
+          </div>
+          
+          <div class="text-8xl md:text-9xl font-black font-display text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-600 to-indigo-600 drop-shadow-md">
+            <span id="finalAnswerValue">00</span>
+          </div>
+
+          <!-- Visualisasi Bentuk Jari Kartun untuk Siswa SD -->
+          <div class="w-full bg-slate-50 border border-slate-200 rounded-3xl p-4 text-center shadow-inner">
+            <h4 class="text-xs font-extrabold text-slate-500 uppercase tracking-wider mb-3">
+              Cocokkan Jarimu dengan Gambar di Layar:
+            </h4>
+            
+            <div class="grid grid-cols-2 gap-4">
+              <!-- Kartu Visual Tangan Kiri (Puluhan) -->
+              <div class="p-3 bg-indigo-50/90 border border-indigo-100 rounded-2xl flex flex-col items-center">
+                <span class="text-xs font-black text-indigo-600 mb-1.5 flex items-center gap-1">
+                  👈 Tangan Kiri (Puluhan)
+                </span>
+                
+                <!-- SVG Diagram Tangan Kiri -->
+                <div id="visualLeftHand" class="flex items-end justify-center gap-1.5 h-24 my-2 px-3 py-2 bg-white rounded-xl border border-indigo-100 w-full max-w-[170px]">
+                  <!-- Akan di-generate via JS: Jari Kelingking s.d Jempol -->
+                </div>
+                
+                <span id="descLeftHand" class="text-xs text-indigo-800 font-bold mt-1">-</span>
+              </div>
+
+              <!-- Kartu Visual Tangan Kanan (Satuan) -->
+              <div class="p-3 bg-rose-50/90 border border-rose-100 rounded-2xl flex flex-col items-center">
+                <span class="text-xs font-black text-rose-600 mb-1.5 flex items-center gap-1">
+                  👉 Tangan Kanan (Satuan)
+                </span>
+
+                <!-- SVG Diagram Tangan Kanan -->
+                <div id="visualRightHand" class="flex items-end justify-center gap-1.5 h-24 my-2 px-3 py-2 bg-white rounded-xl border border-rose-100 w-full max-w-[170px]">
+                  <!-- Akan di-generate via JS: Jempol s.d Kelingking -->
+                </div>
+
+                <span id="descRightHand" class="text-xs text-rose-800 font-bold mt-1">-</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tombol Aksi Lanjut -->
+          <div class="flex items-center gap-3 pt-2">
+            <button id="btnNextRound" class="px-8 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold rounded-2xl shadow-lg shadow-indigo-200 transition transform hover:-translate-y-0.5">
+              Lanjut Soal Berikutnya &rarr;
+            </button>
+            <button id="btnToggleBreakdown" class="px-4 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-2xl text-xs">
+              Lihat Riwayat Angka
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- FOOTER CONTROL BAR (KONTROL GURU / COACH SAAT BERJALAN) -->
+      <div class="px-6 py-3 bg-slate-50 border-t border-indigo-50 flex items-center justify-between text-xs text-slate-500">
+        <div class="flex items-center gap-2">
+          <button id="btnStop" class="px-3 py-1.5 rounded-lg bg-slate-200 hover:bg-rose-100 hover:text-rose-700 font-bold transition disabled:opacity-40" disabled>
+            Hentikan / Reset
+          </button>
+          <span class="text-slate-400">|</span>
+          <span id="coachTip" class="italic text-slate-500 hidden sm:inline">
+            "Ingat rumus kawan 5 SD: Buka jempol (5), lalu lipat kawan temannya!"
+          </span>
+        </div>
+
+        <div class="text-right">
+          <span class="font-semibold text-slate-400">Tingkat:</span>
+          <span class="font-bold text-amber-600">SD / MI Dasar</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL BREAKDOWN LANGKAH (Bisa di-toggle untuk verifikasi kelas) -->
+    <div id="breakdownPanel" class="w-full max-w-4xl mt-4 bg-white/90 rounded-2xl p-4 border border-slate-200 shadow-sm hidden">
+      <div class="flex items-center justify-between mb-2">
+        <h4 class="text-xs font-black uppercase tracking-wider text-slate-700">Rincian Hitungan Setiap Baris:</h4>
+        <span class="text-[11px] text-slate-400">Verifikasi bersama siswa</span>
+      </div>
+      <div id="breakdownList" class="flex flex-wrap items-center gap-2 text-sm font-semibold">
+        <!-- Akan diisi lewat JS: Contoh badge "+25 -> -12 -> +30 = 43" -->
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER DEVELOPER & KREDIT -->
+  <footer class="w-full py-3 bg-white/60 backdrop-blur-sm border-t border-indigo-50 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-1 font-medium">
+      <div>
+        Aplikasi Penguji Mental Aritmatika &bull; Dirancang untuk Proyektor Pembelajaran SMA
+      </div>
+      <div class="font-semibold text-slate-700">
+        Pengembang: <span class="text-indigo-600 font-bold">Rahmat Djafar, S.Pd., Gr.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL PANDUAN DASAR JARIMATIKA (POPUP EDUKASI) -->
+  <div id="modalGuide" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 shadow-2xl border border-indigo-100 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-lg">✋</div>
+          <h3 class="text-lg font-black text-slate-800 font-display">Panduan Jarimatika Ceria (Siswa SD)</h3>
+        </div>
+        <button id="btnCloseGuide" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-xl hover:bg-slate-100">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="space-y-4 text-xs md:text-sm text-slate-600 leading-relaxed">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <!-- Tangan Kanan Satuan Dulu (Fokus Utama SD) -->
+          <div class="p-3.5 bg-rose-50/80 border border-rose-100 rounded-2xl">
+            <span class="font-extrabold text-rose-700 block text-sm mb-1">👉 TANGAN KANAN = SATUAN (1 - 9)</span>
+            <ul class="space-y-1 list-disc list-inside text-slate-700">
+              <li><strong>Jempol Kanan:</strong> Bernilai <strong>5</strong> ⭐</li>
+              <li><strong>Telunjuk Kanan:</strong> Bernilai <strong>1</strong></li>
+              <li><strong>Jari Tengah Kanan:</strong> Bernilai <strong>1</strong></li>
+              <li><strong>Jari Manis Kanan:</strong> Bernilai <strong>1</strong></li>
+              <li><strong>Kelingking Kanan:</strong> Bernilai <strong>1</strong></li>
+            </ul>
+          </div>
+
+          <!-- Tangan Kiri Puluhan -->
+          <div class="p-3.5 bg-indigo-50/80 border border-indigo-100 rounded-2xl">
+            <span class="font-extrabold text-indigo-700 block text-sm mb-1">👈 TANGAN KIRI = PULUHAN (10 - 50)</span>
+            <ul class="space-y-1 list-disc list-inside text-slate-700">
+              <li><strong>Jempol Kiri:</strong> Bernilai <strong>50</strong> ⭐</li>
+              <li><strong>Telunjuk Kiri:</strong> Bernilai <strong>10</strong></li>
+              <li><strong>Jari Tengah Kiri:</strong> Bernilai <strong>10</strong></li>
+              <li><strong>Jari Manis Kiri:</strong> Bernilai <strong>10</strong></li>
+              <li><strong>Kelingking Kiri:</strong> Bernilai <strong>10</strong></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="p-3 bg-amber-50 border border-amber-200 rounded-2xl text-amber-900">
+          <h5 class="font-bold text-xs uppercase tracking-wider mb-1">Teman Kawan Kecil (Jumlah 5):</h5>
+          <p class="text-xs leading-relaxed">
+            Teman <strong>1 adalah 4</strong> &bull; Teman <strong>2 adalah 3</strong> &bull; Teman <strong>3 adalah 2</strong> &bull; Teman <strong>4 adalah 1</strong>.<br>
+            <em>Contoh:</em> 2 + 3 = Buka Jempol (5), lalu lipat 2 jari!
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-5 text-center">
+        <button id="btnUnderstand" class="px-6 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl text-xs transition shadow-md shadow-amber-200">
+          Hore, Aku Siap Berhitung!
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT LOGIKA & AUDIO SYNTHESIZER -->
+  <script>
+    /**
+     * SISTEM AUDIO MENEGANGKAN (WEB AUDIO API SYNTHESIZER)
+     * Tanpa ketergantungan file MP3 luar untuk memastikan 100% reliabilitas offline!
+     */
+    class SuspenseAudioEngine {
+      constructor() {
+        this.ctx = null;
+        this.isMuted = false;
+        this.bgmTimer = null;
+        this.droneOsc = null;
+        this.droneGain = null;
+      }
+
+      initContext() {
+        if (!this.ctx) {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioContextClass();
+        }
+        if (this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+
+      toggleMute() {
+        this.isMuted = !this.isMuted;
+        if (this.isMuted) {
+          this.stopBGM();
+        }
+        return !this.isMuted;
+      }
+
+      // Suara detak jantung / kick drum menegangkan
+      playHeartbeat(frequency = 60, intensity = 0.5) {
+        if (this.isMuted) return;
+        this.initContext();
+
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const now = this.ctx.currentTime;
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(frequency, now);
+        osc.frequency.exponentialRampToValueAtTime(25, now + 0.12);
+
+        gain.gain.setValueAtTime(intensity, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+
+        osc.start(now);
+        osc.stop(now + 0.2);
+      }
+
+      // Suara swoosh / transisi angka baru (ketegangan meningkat)
+      playTickTransition(isAddition = true) {
+        if (this.isMuted) return;
+        this.initContext();
+
+        const now = this.ctx.currentTime;
+        // Frekuensi lebih ceria untuk +, lebih tajam untuk -
+        const baseFreq = isAddition ? 440 : 330;
+
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(baseFreq, now);
+        osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.5, now + 0.08);
+
+        gain.gain.setValueAtTime(0.3, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+
+        osc.start(now);
+        osc.stop(now + 0.12);
+
+        // Tambah detak jantung bersamaan
+        this.playHeartbeat(75, 0.4);
+      }
+
+      // Countdown beep
+      playCountdownBeep(isFinal = false) {
+        if (this.isMuted) return;
+        this.initContext();
+
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(isFinal ? 880 : 440, now);
+
+        gain.gain.setValueAtTime(0.4, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + (isFinal ? 0.35 : 0.15));
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+
+        osc.start(now);
+        osc.stop(now + (isFinal ? 0.4 : 0.2));
+      }
+
+      // Mulai drone suara bass menegangkan di latar belakang
+      startTenseLoop() {
+        if (this.isMuted) return;
+        this.initContext();
+        this.stopBGM();
+
+        // Buat drone bergelombang menegangkan
+        const now = this.ctx.currentTime;
+        this.droneOsc = this.ctx.createOscillator();
+        this.droneGain = this.ctx.createGain();
+
+        this.droneOsc.type = 'sawtooth';
+        this.droneOsc.frequency.setValueAtTime(55, now); // Nada A1 dalam
+
+        // Filter suara agar gelap/menegangkan (low-pass)
+        const filter = this.ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(140, now);
+
+        this.droneGain.gain.setValueAtTime(0.08, now);
+
+        this.droneOsc.connect(filter);
+        filter.connect(this.droneGain);
+        this.droneGain.connect(this.ctx.destination);
+
+        this.droneOsc.start();
+
+        // Loop detak jantung ganda (lub-dub suspense)
+        this.bgmTimer = setInterval(() => {
+          if (this.isMuted) return;
+          this.playHeartbeat(55, 0.35);
+          setTimeout(() => {
+            this.playHeartbeat(45, 0.25);
+          }, 140);
+        }, 900);
+      }
+
+      stopBGM() {
+        if (this.bgmTimer) {
+          clearInterval(this.bgmTimer);
+          this.bgmTimer = null;
+        }
+        if (this.droneOsc) {
+          try {
+            this.droneGain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.1);
+            this.droneOsc.stop(this.ctx.currentTime + 0.12);
+          } catch(e) {}
+          this.droneOsc = null;
+        }
+      }
+
+      // Fanfare kemenangan saat kunci jawaban dibuka
+      playFanfare() {
+        if (this.isMuted) return;
+        this.initContext();
+
+        const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+        notes.forEach((freq, idx) => {
+          const now = this.ctx.currentTime + (idx * 0.09);
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now);
+
+          gain.gain.setValueAtTime(0.25, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+
+          osc.start(now);
+          osc.stop(now + 0.45);
+        });
+      }
+    }
+
+    /**
+     * ENGINE LOGIKA JARIMATIKA
+     * Disesuaikan khusus untuk tingkatan dasar SD:
+     * Level 1: Satuan murni 1-9 (Hanya tangan kanan, tanpa kawan)
+     * Level 2: Kawan kecil 5 (Tangan kanan)
+     * Level 3: Transisi belasan 1-20 (Mulai gunakan tangan kiri bernilai 10)
+     * Level 4: Puluhan ceria SD (Hasil 10-50)
+     */
+    class JarimatikaExerciseGenerator {
+      /**
+       * Menghasilkan rentetan operasi matematis ramah siswa SD
+       * @param {number} level 1 s.d 4
+       * @param {number} totalSteps Jumlah angka ditampilkan
+       */
+      static generate(level, totalSteps = 4) {
+        let attempts = 0;
+        const maxAttempts = 120;
+
+        while (attempts < maxAttempts) {
+          attempts++;
+          const sequence = [];
+          
+          let initial = 0;
+          let minBound = 1;
+          let maxBound = 9;
+
+          if (level === 1) {
+            // Level 1: Satuan Murni (1 - 9)
+            initial = this.getRandomInt(1, 4);
+            minBound = 1;
+            maxBound = 9;
+          } else if (level === 2) {
+            // Level 2: Kawan Kecil (1 - 9)
+            initial = this.getRandomInt(2, 4);
+            minBound = 1;
+            maxBound = 9;
+          } else if (level === 3) {
+            // Level 3: Menuju Belasan (1 - 20)
+            initial = this.getRandomInt(5, 12);
+            minBound = 1;
+            maxBound = 20;
+          } else {
+            // Level 4: Puluhan Pemula (10 - 50)
+            initial = this.getRandomInt(12, 30);
+            minBound = 10;
+            maxBound = 50;
+          }
+
+          let currentTotal = initial;
+          sequence.push({
+            op: '+',
+            value: initial,
+            subtotal: currentTotal,
+            note: 'Angka Awal'
+          });
+
+          let valid = true;
+
+          for (let i = 1; i < totalSteps; i++) {
+            let canAdd = currentTotal < (maxBound - 1);
+            let canSub = currentTotal > (minBound + 1);
+
+            let isAddition = canAdd && canSub ? (Math.random() > 0.45) : canAdd;
+            let stepVal = 0;
+
+            if (level === 1) {
+              // Level 1: Tambah/kurang langsung (1-3)
+              stepVal = isAddition ? this.getRandomInt(1, Math.min(3, maxBound - currentTotal)) : this.getRandomInt(1, Math.min(3, currentTotal - minBound));
+            } else if (level === 2) {
+              // Level 2: Melibatkan kawan 5
+              stepVal = isAddition ? this.getRandomInt(2, Math.min(4, maxBound - currentTotal)) : this.getRandomInt(2, Math.min(4, currentTotal - minBound));
+            } else if (level === 3) {
+              // Level 3: Melibatkan loncatan kawan 10
+              stepVal = isAddition ? this.getRandomInt(2, Math.min(7, maxBound - currentTotal)) : this.getRandomInt(2, Math.min(6, currentTotal - minBound));
+            } else {
+              // Level 4: Puluhan kecil SD
+              stepVal = isAddition ? this.getRandomInt(5, Math.min(15, maxBound - currentTotal)) : this.getRandomInt(5, Math.min(15, currentTotal - minBound));
+            }
+
+            if (!stepVal || stepVal <= 0) {
+              valid = false;
+              break;
+            }
+
+            if (isAddition) {
+              currentTotal += stepVal;
+            } else {
+              currentTotal -= stepVal;
+            }
+
+            if (currentTotal < minBound || currentTotal > maxBound) {
+              valid = false;
+              break;
+            }
+
+            sequence.push({
+              op: isAddition ? '+' : '-',
+              value: stepVal,
+              subtotal: currentTotal
+            });
+          }
+
+          if (valid && sequence.length === totalSteps) {
+            return {
+              sequence,
+              finalTotal: currentTotal
+            };
+          }
+        }
+
+        // Fallback aman ramah SD
+        return {
+          sequence: [
+            { op: '+', value: 3, subtotal: 3 },
+            { op: '+', value: 4, subtotal: 7 },
+            { op: '-', value: 2, subtotal: 5 },
+            { op: '+', value: 3, subtotal: 8 }
+          ],
+          finalTotal: 8
+        };
+      }
+
+      static getRandomInt(min, max) {
+        if (min > max) return min;
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      /**
+       * Menerjemahkan angka ke deskripsi posisi jari Jarimatika SD & array visual jari
+       */
+      static describeJarimatikaFormation(number) {
+        const tens = Math.floor(number / 10);
+        const units = number % 10;
+
+        let leftDesc = "";
+        let rightDesc = "";
+
+        // Status jari tangan kiri: [kelingking, manis, tengah, telunjuk, jempol]
+        let leftFingers = {
+          pinky: tens >= 4,
+          ring: tens >= 3,
+          middle: tens >= 2,
+          index: tens >= 1 && (tens < 5 || tens % 5 >= 1),
+          thumb: tens >= 5
+        };
+
+        // Status jari tangan kanan: [jempol, telunjuk, tengah, manis, kelingking]
+        let rightFingers = {
+          thumb: units >= 5,
+          index: (units % 5) >= 1,
+          middle: (units % 5) >= 2,
+          ring: (units % 5) >= 3,
+          pinky: (units % 5) >= 4
+        };
+
+        // Deskripsi Tangan Kiri (Puluhan)
+        if (tens === 0) {
+          leftDesc = "Tangan Kiri Tertutup Rapat (0)";
+        } else if (tens >= 5) {
+          const rem = tens - 5;
+          leftDesc = `Jempol Kiri (50)${rem > 0 ? ` + ${rem} Jari Biasa (${rem * 10})` : ''}`;
+        } else {
+          leftDesc = `Buka ${tens} Jari Biasa (${tens * 10})`;
+        }
+
+        // Deskripsi Tangan Kanan (Satuan)
+        if (units === 0) {
+          rightDesc = "Tangan Kanan Tertutup Rapat (0)";
+        } else if (units >= 5) {
+          const rem = units - 5;
+          rightDesc = `Jempol Kanan (5)${rem > 0 ? ` + ${rem} Jari Biasa (${rem})` : ''}`;
+        } else {
+          rightDesc = `Buka ${units} Jari Biasa (${units})`;
+        }
+
+        return { leftDesc, rightDesc, leftFingers, rightFingers };
+      }
+    }
+
+    /**
+     * PENGONTROL APLIKASI UTAMA (STATE & DOM)
+     */
+    document.addEventListener('DOMContentLoaded', () => {
+      const audio = new SuspenseAudioEngine();
+
+      // Referensi Elemen UI
+      const btnStart = document.getElementById('btnStart');
+      const btnStop = document.getElementById('btnStop');
+      const btnReveal = document.getElementById('btnReveal');
+      const btnRetry = document.getElementById('btnRetry');
+      const btnNextRound = document.getElementById('btnNextRound');
+      const btnToggleBreakdown = document.getElementById('btnToggleBreakdown');
+      const btnAudio = document.getElementById('btnAudio');
+      const btnFullscreen = document.getElementById('btnFullscreen');
+      const btnGuide = document.getElementById('btnGuide');
+      const btnCloseGuide = document.getElementById('btnCloseGuide');
+      const btnUnderstand = document.getElementById('btnUnderstand');
+
+      const selectLevel = document.getElementById('selectLevel');
+      const selectSpeed = document.getElementById('selectSpeed');
+      const selectSteps = document.getElementById('selectSteps');
+
+      const screenIdle = document.getElementById('screenIdle');
+      const screenCountdown = document.getElementById('screenCountdown');
+      const screenFlash = document.getElementById('screenFlash');
+      const screenAnswering = document.getElementById('screenAnswering');
+      const screenResult = document.getElementById('screenResult');
+
+      const countdownNumber = document.getElementById('countdownNumber');
+      const displaySign = document.getElementById('displaySign');
+      const displayValue = document.getElementById('displayValue');
+      const subHint = document.getElementById('subHint');
+
+      const badgeStatus = document.getElementById('badgeStatus');
+      const stepCounterText = document.getElementById('stepCounterText');
+      const stepTimerBar = document.getElementById('stepTimerBar');
+
+      const finalAnswerValue = document.getElementById('finalAnswerValue');
+      const descLeftHand = document.getElementById('descLeftHand');
+      const descRightHand = document.getElementById('descRightHand');
+      const breakdownPanel = document.getElementById('breakdownPanel');
+      const breakdownList = document.getElementById('breakdownList');
+
+      const visualLeftHand = document.getElementById('visualLeftHand');
+      const visualRightHand = document.getElementById('visualRightHand');
+
+      const iconAudioOn = document.getElementById('iconAudioOn');
+      const iconAudioOff = document.getElementById('iconAudioOff');
+      const labelAudio = document.getElementById('labelAudio');
+
+      // State Latihan
+      let currentExercise = null;
+      let currentStepIndex = 0;
+      let timerInterval = null;
+      let stepTimeout = null;
+      let isRunning = false;
+
+      // Sembunyikan semua layar
+      function hideAllScreens() {
+        screenIdle.classList.add('hidden');
+        screenCountdown.classList.add('hidden');
+        screenFlash.classList.add('hidden');
+        screenAnswering.classList.add('hidden');
+        screenResult.classList.add('hidden');
+      }
+
+      // Update Tampilan Status Badge
+      function setStatus(text, colorClass = 'bg-slate-200 text-slate-700') {
+        badgeStatus.className = `inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs ${colorClass}`;
+        badgeStatus.innerHTML = `<span class="w-2 h-2 rounded-full bg-current"></span> ${text}`;
+      }
+
+      // Mulai Rangkaian Sesi
+      function startSession(reuseExisting = false) {
+        if (!reuseExisting || !currentExercise) {
+          const level = parseInt(selectLevel.value, 10);
+          const steps = parseInt(selectSteps.value, 10);
+          currentExercise = JarimatikaExerciseGenerator.generate(level, steps);
+        }
+
+        currentStepIndex = 0;
+        isRunning = true;
+        btnStop.disabled = false;
+        breakdownPanel.classList.add('hidden');
+
+        hideAllScreens();
+        screenCountdown.classList.remove('hidden');
+        setStatus("Hitung Mundur Mulai...", "bg-amber-100 text-amber-800");
+
+        // Countdown 3, 2, 1
+        let count = 3;
+        countdownNumber.textContent = count;
+        audio.playCountdownBeep(false);
+
+        const cdInterval = setInterval(() => {
+          count--;
+          if (count > 0) {
+            countdownNumber.textContent = count;
+            audio.playCountdownBeep(false);
+          } else {
+            clearInterval(cdInterval);
+            countdownNumber.textContent = "GO!";
+            audio.playCountdownBeep(true);
+            setTimeout(() => {
+              startExerciseFlashing();
+            }, 500);
+          }
+        }, 1000);
+      }
+
+      // Menjalankan Flash Pergantian Angka
+      function startExerciseFlashing() {
+        hideAllScreens();
+        screenFlash.classList.remove('hidden');
+        setStatus("Perhatikan Layar & Gerakkan Jari!", "bg-rose-100 text-rose-700 animate-pulse");
+
+        // Mulai audio ketegangan
+        audio.startTenseLoop();
+
+        const speed = parseInt(selectSpeed.value, 10);
+        const total = currentExercise.sequence.length;
+
+        function showNextStep() {
+          if (!isRunning) return;
+
+          if (currentStepIndex >= total) {
+            // Selesai semua langkah -> Pindah ke mode tunggu jawaban
+            finishFlashing();
+            return;
+          }
+
+          const stepData = currentExercise.sequence[currentStepIndex];
+          stepCounterText.textContent = `${currentStepIndex + 1} / ${total}`;
+
+          // Format Tampilan Simbol dan Warna
+          if (currentStepIndex === 0) {
+            displaySign.textContent = '';
+            displaySign.className = 'hidden';
+            displayValue.className = 'text-8xl md:text-9xl lg:text-[11rem] font-black tracking-tight font-display text-indigo-600 animate-pop-in drop-shadow-sm';
+            subHint.textContent = "Bentuk angka awal ini di kedua tangan!";
+            subHint.className = 'mt-2 px-4 py-1.5 rounded-full bg-indigo-50 text-indigo-700 text-xs md:text-sm font-bold border border-indigo-200';
+            audio.playTickTransition(true);
+          } else {
+            displaySign.classList.remove('hidden');
+            if (stepData.op === '+') {
+              displaySign.textContent = '+';
+              displaySign.className = 'text-6xl md:text-8xl lg:text-9xl font-black font-display text-emerald-500';
+              displayValue.className = 'text-8xl md:text-9xl lg:text-[11rem] font-black tracking-tight font-display text-emerald-600 animate-pop-in drop-shadow-sm';
+              subHint.textContent = `TAMBAH ${stepData.value}: Buka jari sesuai rumus kawan!`;
+              subHint.className = 'mt-2 px-4 py-1.5 rounded-full bg-emerald-50 text-emerald-700 text-xs md:text-sm font-bold border border-emerald-200';
+              audio.playTickTransition(true);
+            } else {
+              displaySign.textContent = '-';
+              displaySign.className = 'text-6xl md:text-8xl lg:text-9xl font-black font-display text-rose-500';
+              displayValue.className = 'text-8xl md:text-9xl lg:text-[11rem] font-black tracking-tight font-display text-rose-600 animate-pop-in drop-shadow-sm';
+              subHint.textContent = `KURANG ${stepData.value}: Lipat/tutup jari sesuai rumus kawan!`;
+              subHint.className = 'mt-2 px-4 py-1.5 rounded-full bg-rose-50 text-rose-700 text-xs md:text-sm font-bold border border-rose-200';
+              audio.playTickTransition(false);
+            }
+          }
+
+          displayValue.textContent = stepData.value;
+
+          // Animasi Timer Bar
+          stepTimerBar.style.transition = 'none';
+          stepTimerBar.style.width = '100%';
+          setTimeout(() => {
+            stepTimerBar.style.transition = `width ${speed}ms linear`;
+            stepTimerBar.style.width = '0%';
+          }, 30);
+
+          currentStepIndex++;
+          stepTimeout = setTimeout(showNextStep, speed);
+        }
+
+        showNextStep();
+      }
+
+      // Selesai Flash -> Mode Tunggu Kunci Jawaban
+      function finishFlashing() {
+        audio.stopBGM();
+        hideAllScreens();
+        screenAnswering.classList.remove('hidden');
+        setStatus("Selesai! Berapa Angka di Jarimu?", "bg-amber-100 text-amber-800");
+        stepTimerBar.style.width = '0%';
+      }
+
+      // Helper Renderer Kartun Jari SD
+      function renderVisualHand(container, fingersObj, isRightHand = true) {
+        container.innerHTML = '';
+
+        // Tangan Kiri: Kelingking (10), Manis (10), Tengah (10), Telunjuk (10), Jempol (50)
+        // Tangan Kanan: Jempol (5), Telunjuk (1), Tengah (1), Manis (1), Kelingking (1)
+        const fingers = isRightHand ? [
+          { key: 'thumb', label: 'J (5)', height: 'h-10', baseW: 'w-4', color: 'bg-amber-400' },
+          { key: 'index', label: '1', height: 'h-14', baseW: 'w-3.5', color: 'bg-rose-400' },
+          { key: 'middle', label: '1', height: 'h-16', baseW: 'w-3.5', color: 'bg-rose-400' },
+          { key: 'ring', label: '1', height: 'h-14', baseW: 'w-3.5', color: 'bg-rose-400' },
+          { key: 'pinky', label: '1', height: 'h-11', baseW: 'w-3', color: 'bg-rose-400' },
+        ] : [
+          { key: 'pinky', label: '10', height: 'h-11', baseW: 'w-3', color: 'bg-indigo-400' },
+          { key: 'ring', label: '10', height: 'h-14', baseW: 'w-3.5', color: 'bg-indigo-400' },
+          { key: 'middle', label: '10', height: 'h-16', baseW: 'w-3.5', color: 'bg-indigo-400' },
+          { key: 'index', label: '10', height: 'h-14', baseW: 'w-3.5', color: 'bg-indigo-400' },
+          { key: 'thumb', label: 'J (50)', height: 'h-10', baseW: 'w-4', color: 'bg-amber-400' },
+        ];
+
+        fingers.forEach(f => {
+          const isOpen = fingersObj[f.key];
+          const fingerEl = document.createElement('div');
+          fingerEl.className = 'flex flex-col items-center justify-end';
+
+          fingerEl.innerHTML = `
+            <div class="${f.baseW} ${isOpen ? f.height + ' ' + f.color + ' shadow-md ring-2 ring-emerald-400' : 'h-4 bg-slate-300'} rounded-t-full transition-all duration-300 flex items-start justify-center">
+              ${isOpen ? '<span class="text-[8px] text-white font-black mt-0.5">•</span>' : ''}
+            </div>
+            <span class="text-[9px] font-black ${isOpen ? 'text-slate-800' : 'text-slate-400'} mt-1">${f.label}</span>
+          `;
+          container.appendChild(fingerEl);
+        });
+      }
+
+      // Buka Kunci Jawaban & Tampilkan Hasil
+      function revealAnswer() {
+        audio.stopBGM();
+        audio.playFanfare();
+        hideAllScreens();
+        screenResult.classList.remove('hidden');
+        setStatus("Kunci Jawaban Terbuka", "bg-emerald-100 text-emerald-800");
+
+        const ans = currentExercise.finalTotal;
+        finalAnswerValue.textContent = ans;
+
+        // Analisis formasi jari & generate visual kartun
+        const formation = JarimatikaExerciseGenerator.describeJarimatikaFormation(ans);
+        descLeftHand.textContent = formation.leftDesc;
+        descRightHand.textContent = formation.rightDesc;
+
+        // Render kartun jari di layar proyektor
+        renderVisualHand(visualLeftHand, formation.leftFingers, false);
+        renderVisualHand(visualRightHand, formation.rightFingers, true);
+
+        // Siapkan panel riwayat
+        populateBreakdown();
+      }
+
+      // Isi Panel Breakdown untuk crosscheck guru
+      function populateBreakdown() {
+        breakdownList.innerHTML = '';
+        currentExercise.sequence.forEach((item, idx) => {
+          const badge = document.createElement('div');
+          const isPlus = item.op === '+';
+          badge.className = `px-3 py-1.5 rounded-xl text-xs font-bold border flex items-center gap-1 ${
+            idx === 0 
+              ? 'bg-indigo-50 text-indigo-700 border-indigo-200' 
+              : isPlus 
+                ? 'bg-emerald-50 text-emerald-700 border-emerald-200' 
+                : 'bg-rose-50 text-rose-700 border-rose-200'
+          }`;
+          badge.innerHTML = `
+            <span>${idx === 0 ? 'Mulai:' : item.op}</span>
+            <span class="text-sm font-black">${item.value}</span>
+            <span class="text-slate-400 font-normal">(&rarr; ${item.subtotal})</span>
+          `;
+          breakdownList.appendChild(badge);
+        });
+
+        // Hasil akhir badge
+        const totalBadge = document.createElement('div');
+        totalBadge.className = 'px-3.5 py-1.5 rounded-xl text-xs font-black bg-slate-900 text-white shadow-sm';
+        totalBadge.innerHTML = `= ${currentExercise.finalTotal}`;
+        breakdownList.appendChild(totalBadge);
+      }
+
+      // Reset ke Kondisi Awal
+      function resetSession() {
+        isRunning = false;
+        clearTimeout(stepTimeout);
+        clearInterval(timerInterval);
+        audio.stopBGM();
+
+        btnStop.disabled = true;
+        hideAllScreens();
+        screenIdle.classList.remove('hidden');
+        setStatus("Siap Memulai", "bg-slate-200 text-slate-700");
+        stepTimerBar.style.width = '0%';
+        stepCounterText.textContent = `0 / ${selectSteps.value}`;
+        breakdownPanel.classList.add('hidden');
+      }
+
+      // EVENT LISTENERS
+      btnStart.addEventListener('click', () => startSession(false));
+      btnStop.addEventListener('click', resetSession);
+      btnReveal.addEventListener('click', revealAnswer);
+      btnRetry.addEventListener('click', () => startSession(true));
+      btnNextRound.addEventListener('click', () => startSession(false));
+
+      btnToggleBreakdown.addEventListener('click', () => {
+        breakdownPanel.classList.toggle('hidden');
+      });
+
+      // Kontrol Audio
+      btnAudio.addEventListener('click', () => {
+        const isNowOn = audio.toggleMute();
+        if (isNowOn) {
+          iconAudioOn.classList.remove('hidden');
+          iconAudioOff.classList.add('hidden');
+          labelAudio.textContent = 'BGM & SFX: Nyala';
+          btnAudio.className = 'px-3.5 py-2 bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 text-xs font-bold rounded-xl transition flex items-center gap-1.5 shadow-sm';
+        } else {
+          iconAudioOn.classList.add('hidden');
+          iconAudioOff.classList.remove('hidden');
+          labelAudio.textContent = 'Suara: Hening';
+          btnAudio.className = 'px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-500 border border-slate-200 text-xs font-bold rounded-xl transition flex items-center gap-1.5 shadow-sm';
+        }
+      });
+
+      // Fullscreen Proyektor
+      btnFullscreen.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      });
+
+      // Modal Panduan
+      btnGuide.addEventListener('click', () => modalGuide.classList.remove('hidden'));
+      btnCloseGuide.addEventListener('click', () => modalGuide.classList.add('hidden'));
+      btnUnderstand.addEventListener('click', () => modalGuide.classList.add('hidden'));
+
+      // Sinkronisasi info total saat jumlah baris diubah
+      selectSteps.addEventListener('change', () => {
+        if (!isRunning) {
+          stepCounterText.textContent = `0 / ${selectSteps.value}`;
+        }
+      });
+
+      // Shortcut Keyboard untuk Guru / Presenter Proyektor
+      window.addEventListener('keydown', (e) => {
+        if (e.code === 'Space') {
+          // Tombol Spasi: Mulai / Buka Kunci Jawaban
+          e.preventDefault();
+          if (!isRunning && !screenAnswering.classList.contains('hidden')) {
+            revealAnswer();
+          } else if (screenIdle.classList.contains('hidden') === false) {
+            startSession(false);
+          }
+        } else if (e.code === 'KeyR') {
+          // Tombol R: Reset
+          resetSession();
+        } else if (e.code === 'KeyM') {
+          // Tombol M: Mute
+          btnAudio.click();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
